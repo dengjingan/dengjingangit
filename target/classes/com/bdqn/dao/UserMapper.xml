@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bdqn.dao.UserMapper">
+    <resultMap id="role" type="Role">
+        <result property="id" column="rid"/>
+        <result property="roleName" column="roleName"/>
+    </resultMap>
+    <resultMap id="userList" type="user">
+        <result property="id" column="id"/>
+        <association property="role" resultMap="role">
+        </association>
+        <collection property="addressList" ofType="Address">
+            <result property="contact" column="contact"/>
+            <result property="addressDesc" column="addressDesc"/>
+            <result property="userId" column="userId"/>
+        </collection>
+    </resultMap>
+    <select id="getUserById" parameterType="int" resultMap="userList">
+      select  su.id,su.userCode,su.userName,su.gender,su.phone,sr.roleName,sr.id as rid,sa.userId,sa.contact,sa.addressDesc  from smbms_user su,smbms_role sr,smbms_address sa where su.userRole=sr.id and su.id=sa.userId and su.id=#{id}
+    </select>
+</mapper>

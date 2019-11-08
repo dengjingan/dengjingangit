@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!-- 引入 database.properties 文件-->
+    <properties resource="database.properties"/>
+    <settings>
+        <setting  name="autoMappingBehavior" value="FULL"/>
+        <!-- 配置mybatis的log实现为LOG4J -->
+        <setting name="logImpl" value="LOG4J" />
+    </settings>
+    <typeAliases>
+        <package name="com.bdqn.pojo"/>
+    </typeAliases>
+    <environments default="delo">
+        <environment id="delo">
+            <transactionManager type="JDBC"></transactionManager>
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${user}"/>
+                <property name="password" value="${password}"/>
+
+            </dataSource>
+
+        </environment>
+    </environments>
+    <mappers>
+        <mapper resource="com\bdqn\dao\StudentMapper.xml"/>
+        <mapper resource="com\bdqn\dao\UserMapper.xml"/>
+    </mappers>
+</configuration>
